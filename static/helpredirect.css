@@ -1,0 +1,17 @@
+/*
+ * Estilos personalizados
+ */
+.atencao-div {
+  width: 75%;
+  padding: 1%;
+  border: 1px solid;
+  margin: 1% auto;
+}
+
+#link_build_rules {
+  box-shadow: 0 4px 8px 0 #888888;
+}
+
+#link_check_url_status {
+  box-shadow: 0 4px 8px 0 #888888;
+}

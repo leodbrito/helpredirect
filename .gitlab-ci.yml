@@ -1,0 +1,7 @@
+image: docker-hub.artifactory.globoi.com/tsuru/client:latest
+
+deploy:
+        only:
+                - master
+        script:
+                - tsuru app-deploy -a helpredirect .

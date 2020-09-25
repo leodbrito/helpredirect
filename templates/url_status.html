@@ -1,0 +1,37 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    </br>
+    <div class="d-flex justify-content-end">
+        <button id="btn_copy" class="btn btn-primary btn-sm mb-1 d-flex align-content-center" onclick="copyDivText('url_status')">Copiar  <i class="material-icons">content_copy</i></button>
+    </div>
+    
+    <div class="bg-dark text-light text-center p-1"><h4>URL Status</h4></div>
+
+    <div id="url_status" class="bg-secondary text-light p-2 pre-scrollable" style="max-height: 53vh">
+        <p>
+            -----------------------------------------</br>
+            {% for dict in url_status_list %}
+                {% for k, v in dict.items() %}
+                    {% if k == "history_list" %}
+                        {% for row in dict["history_list"] %}
+                            Location: <b style="color: rgb(161, 217, 255);">{{ row["Location"] }}</b></br>
+                            HTTP Status Code: <b style="color: rgb(255, 249, 167);">{{ row["HTTP Status Code"] }}</b></br>
+                        {% endfor %}
+                    {% elif "error" in k.lower() or "ops" in k.lower() %}
+                        <b style="color: rgb(255, 193, 193);">{{ k }}: {{ v }}</b></br>
+                    {% elif v != "" %}
+                        {{ k }}: <b style="color: rgb(181, 255, 172);">{{ v }}</b></br>
+                    {% endif %}
+                {% endfor %}
+            -----------------------------------------</br>
+            {% endfor %}
+        </p>
+    </div>
+    <div>
+        <div class="mt-1 ml-1 row">
+            <div id="check_url_status_retry" class="btn btn-primary" onclick="window.location.reload()">Retry check</div>
+            <div class="btn btn-primary ml-1" onclick="window.open('/check_url_status', '_self')"> New check</div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    {% if validations["have_duplicates"] == True %}
+        <ul id="messages" class="list-unstyled text-center">
+            <li class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ validations["duplicates_msg"] }}</br>
+                Seguem <b>DUPLICATAS</b> encontradas:</br>
+                {% for url in validations["source_urls_duplicates_list"] %}
+                    <b>{{ url }}</b></br>
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        </ul>
+    {% endif %}
+    {% if validations["have_path_duplicates"] == True %}
+        <ul id="messages" class="list-unstyled text-center">
+            <li class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ validations["path_duplicates_msg"] }}</br>
+                Seguem <b>DUPLICATAS DE PATH</b> encontradas:</br>
+                {% for path in validations["source_urls_path_duplicates_list"] %}
+                    <b>{{ path }}</b></br>
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        </ul>
+    {% endif %}
+    {% if validations["have_invalid_source_url"] == True %}
+        <ul id="messages" class="list-unstyled text-center">
+            <li class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ validations["invalid_source_url_msg"] }}</br>
+                Seguem <b>INCONSISTÊNCIAS</b> encontradas:</br>
+                {% for url in validations["invalid_source_url_list"] %}
+                    <b>{{ url }}</b></br>
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        </ul>
+    {% endif %}
+    {% if validations["have_invalid_dest_url"] == True %}
+        <ul id="messages" class="list-unstyled text-center">
+            <li class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ validations["invalid_dest_url_msg"] }}</br>
+                Seguem <b>INCONSISTÊNCIAS</b> encontradas:</br>
+                {% for url in validations["invalid_dest_url_list"] %}
+                    <b>{{ url }}</b></br>
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        </ul>
+    {% endif %}
+    <h1 class="title m-1 text-center">Contrua regras básicas de redirect para o Nginx</h1>
+    <div class="container">
+        <form id="build_rules" action="{{ url_for('builded_rules') }}" method="post">
+            <fieldset>
+                <div class="form-group">
+                    <label for="source_url">URL(s) de Origem</label>
+                    <textarea id="source_url" name="source_url" class="form-control" rows="8"
+                        placeholder="Insira aqui pelo menos 1 URL de origem por linha"
+                        required>{% if source_url != [] %}{{ source_url }}{% endif%}</textarea>
+                    <!--<button type="submit" class="btn btn-outline-dark btn-sm mt-1" formtarget="_blank" onclick="changePostTarget()">Check Status</button>-->
+                </div>
+                <div class="form-group">
+                    <label for="dest_url">URL(s) de Destino</label>
+                    <textarea id="dest_url" name="dest_url" class="form-control" rows="8"
+                        placeholder="Insira aqui 1 ou exatamente a mesma quantidade de URLs de origem, sempre 1 por linha, para que o casamento origem-destino seja perfeito. Caso opte por apenas 1 URL, o sistema entenderá que todas as URLs de origem apontarão para esse mesmo destino"
+                        required>{% if dest_url != [] %}{{ dest_url }}{% endif%}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Avançar >></button>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

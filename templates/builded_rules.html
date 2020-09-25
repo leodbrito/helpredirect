@@ -1,0 +1,33 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    </br>
+    <div class="d-flex justify-content-end">
+        <button id="btn_copy" class="btn btn-primary mb-1 d-flex align-content-center" onclick="copyText('#input_text')">Copiar <i class="material-icons">content_copy</i></button>
+    </div>
+    
+    <div class="bg-dark text-light text-center p-1"><h4>Regras Construidas</h4></div>
+    
+    <textarea id="input_text" class="form-control bg-secondary text-light" rows="16">{% for rule in rule_list %}
+{{ rule }}{% endfor %}</textarea>
+    
+    {% if dest_url_has_an_error %}
+        <div>
+            <ul class="list-unstyled text-center m-1">
+                <li class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Atenção com as URLs de <b>DESTINO</b> abaixo, pois o sistema identificou que <b>NÃO</b> houve retorno do status code <b>"200"</b>, porém pode ser um problema é de conexão entre o sistema e a URL:</br>
+                    {% for dict in dest_url_status_list %}
+                        {% for k, v in dict.items() %}
+                            {% if "error" in k.lower() or "ops" in k.lower() %}    
+                                <b>{{ dict["URL"] }}</b></br>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </li>        
+            </ul>
+        </div>
+    {% endif %}
+
+{% endblock %}

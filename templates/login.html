@@ -1,0 +1,16 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    <div class="container container-fluid text-center p-2">
+        <img width="30%" height="30%" src="{{ url_for('static', filename='img/OpP-logo-dark.png') }}">
+        <!--<h1 class="text-center m-2">Operação Plataformas</h1>-->
+        <h3 class="text-center">Um app para ajudar a construir regras básicas de redirect no Nginx</h3>
+    </div>
+    <div class="ep-login container">
+        <form method="POST" action="{{ url_for('authenticate') }}">
+            <input type="hidden" name="proxima" value="{{ proxima or url_for('index') }}">
+            <p><label>Login:</label> <input class="form-control" type="text" name="usuario" required></p>
+            <p><label>Senha:</label> <input class="form-control" type="password" name="senha" required></p>
+            <p><button class="btn btn-primary" type="submit">Entrar</button></p>
+        </form>
+    </div>
+{% endblock %}

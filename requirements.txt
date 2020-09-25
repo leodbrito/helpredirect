@@ -1,0 +1,4 @@
+--index-url=https://artifactory.globoi.com/artifactory/api/pypi/pypi-all/simple
+
+flask==1.0.2
+requests

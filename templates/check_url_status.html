@@ -1,0 +1,45 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    {% if validations["have_duplicates"] == True %}
+    <ul id="messages" class="list-unstyled text-center">
+        <li class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ validations["duplicates_msg"] }}</br>
+            Seguem <b>DUPLICATAS</b> encontradas:</br>
+            {% for url in validations["source_urls_duplicates_list"] %}
+                <b>{{ url }}</b></br>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+            </button>
+        </li>
+    </ul>
+    {% endif%}
+    {% if validations["have_invalid_source_url"] == True %}
+    <ul id="messages" class="list-unstyled text-center">
+        <li class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ validations["invalid_source_url_msg"] }}</br>
+            Segue abaixo:</br>
+            {% for url in validations["invalid_source_url_list"] %}
+                <b>{{ url }}</b></br>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+            </button>
+        </li>
+    </ul>
+    {% endif%}
+    <h1 class="title m-1 text-center">Check o status de sua(s) URL(s)</h1>
+    <div class="container">
+        <form action="{{ url_for('url_status') }}" method="post">
+            <fieldset>
+                <div class="form-group">
+                    <label for="check_url">Insira sua(s) URL(s)</label>
+                    <textarea id="check_url" name="check_url" class="form-control" rows="8"
+                        placeholder="Insira aqui pelo menos 1 URL de por linha"
+                        required>{% if url_list != [] %}{{ url_list }}{% endif %}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Avançar >></button>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}
