@@ -7,7 +7,7 @@
 #   URLs de origem e de destino
 #  
 # Criado em 10/07/2020
-# Autor: Leonardo Ferreira de Brito <leonardo.brito@g.globo>
+# Autor: Leonardo Ferreira de Brito <leodbrito@hotmail.com>
 # Versão: 1.0 
 
 import os
